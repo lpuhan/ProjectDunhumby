@@ -61,7 +61,7 @@
 				]
 			},
 			{
-				"name": "Get Metadata1",
+				"name": "Get Metadata for CSV",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -77,13 +77,36 @@
 						"referenceName": "Binary1",
 						"type": "DatasetReference"
 					},
-					"fieldList": [],
+					"fieldList": [
+						"exists",
+						"childItems"
+					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
 						"type": "BinaryReadSettings"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata for CSV",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata for CSV').output.childItems",
+						"type": "Expression"
 					}
 				}
 			}
