@@ -1,0 +1,15 @@
+{
+	"name": "lpadfws",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "1485e5ff-1854-4b3e-a3e0-67c63d90ba8c",
+		"tenantId": "21dcaa37-e771-475f-abfe-d0b4a160655a"
+	}
+}
