@@ -55,7 +55,14 @@
 						{
 							"name": "CPY_CSV",
 							"type": "Copy",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "FilterCSV",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"timeout": "0.12:00:00",
 								"retry": 0,
@@ -107,6 +114,22 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "FilterCSV",
+							"type": "Filter",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"items": {
+									"value": "@item().name",
+									"type": "Expression"
+								},
+								"condition": {
+									"value": "@endswith(toLower(item().name), '.csv')",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
