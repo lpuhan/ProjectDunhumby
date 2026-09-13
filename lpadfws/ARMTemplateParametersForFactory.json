@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "lpadfws"
+		},
+		"LS_BLKUPLOAD_CSV_accountKey": {
+			"value": ""
+		},
+		"LS_BLKUPLOAD_CSV_properties_typeProperties_url": {
+			"value": "https://msstorageacclp.dfs.core.windows.net/"
+		}
+	}
+}
