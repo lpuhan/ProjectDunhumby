@@ -40,7 +40,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "Binary1",
+								"referenceName": "DS_BULK_METADATA",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -80,7 +80,14 @@
 								{
 									"name": "CPY_CSV",
 									"type": "Copy",
-									"dependsOn": [],
+									"dependsOn": [
+										{
+											"activity": "FilterCSV",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
 									"policy": {
 										"timeout": "0.12:00:00",
 										"retry": 0,
@@ -95,6 +102,7 @@
 											"storeSettings": {
 												"type": "AzureBlobFSReadSettings",
 												"recursive": true,
+												"wildcardFileName": "*",
 												"enablePartitionDiscovery": false
 											},
 											"formatSettings": {
@@ -134,6 +142,22 @@
 											"parameters": {}
 										}
 									]
+								},
+								{
+									"name": "FilterCSV",
+									"type": "Filter",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"items": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"condition": {
+											"value": "@endswith(toLower(item().name), '.csv')",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
@@ -145,13 +169,13 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Binary1')]",
+				"[concat(variables('factoryId'), '/datasets/DS_BULK_METADATA')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SRC_BLKUPLOAD_CSV')]",
 				"[concat(variables('factoryId'), '/datasets/DS_TGD_BLKUPLOAD_CSV')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Binary1')]",
+			"name": "[concat(parameters('factoryName'), '/DS_BULK_METADATA')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -186,7 +210,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "olist_customers_dataset.csv",
 						"fileSystem": "input"
 					},
 					"columnDelimiter": ",",
