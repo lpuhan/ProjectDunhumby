@@ -68,6 +68,11 @@
 					"referenceName": "LS_BLKUPLOAD_CSV",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"FIleName": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -178,7 +183,7 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "BlkCpyMetadata",
+								"activity": "FilterCSV_copy1",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -187,7 +192,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('BlkCpyMetadata').output.childItems",
+								"value": "@activity('FilterCSV_copy1').output.Value",
 								"type": "Expression"
 							},
 							"isSequential": false,
@@ -195,14 +200,7 @@
 								{
 									"name": "CPY_CSV",
 									"type": "Copy",
-									"dependsOn": [
-										{
-											"activity": "FilterCSV",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
+									"dependsOn": [],
 									"policy": {
 										"timeout": "0.12:00:00",
 										"retry": 0,
@@ -234,6 +232,7 @@
 											}
 										},
 										"enableStaging": false,
+										"enableSkipIncompatibleRow": true,
 										"translator": {
 											"type": "TabularTranslator",
 											"typeConversion": true,
@@ -247,7 +246,12 @@
 										{
 											"referenceName": "DS_SRC_BLKUPLOAD_CSV",
 											"type": "DatasetReference",
-											"parameters": {}
+											"parameters": {
+												"FIleName": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
 										}
 									],
 									"outputs": [
@@ -257,24 +261,31 @@
 											"parameters": {}
 										}
 									]
-								},
-								{
-									"name": "FilterCSV",
-									"type": "Filter",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"items": {
-											"value": "@item().name",
-											"type": "Expression"
-										},
-										"condition": {
-											"value": "@endswith(toLower(item().name), '.csv')",
-											"type": "Expression"
-										}
-									}
 								}
 							]
+						}
+					},
+					{
+						"name": "FilterCSV_copy1",
+						"type": "Filter",
+						"dependsOn": [
+							{
+								"activity": "BlkCpyMetadata",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('BlkCpyMetadata').output.childItems",
+								"type": "Expression"
+							},
+							"condition": {
+								"value": "@endswith(toLower(item().name), '.csv')",
+								"type": "Expression"
+							}
 						}
 					}
 				],
