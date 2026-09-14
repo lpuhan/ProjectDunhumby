@@ -5,6 +5,11 @@
 			"referenceName": "LS_BLKUPLOAD_CSV",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"FIleName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
