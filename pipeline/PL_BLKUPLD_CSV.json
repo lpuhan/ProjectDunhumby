@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "Binary1",
+						"referenceName": "DS_BULK_METADATA",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -76,6 +76,7 @@
 									"type": "DelimitedTextSource",
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
