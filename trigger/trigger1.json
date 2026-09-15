@@ -1,13 +1,20 @@
 {
 	"name": "trigger1",
 	"properties": {
-		"annotations": [],
-		"runtimeState": "Started",
+		"annotations": [
+			"@triggerBody().folderPath",
+			"@triggerBody().fileName"
+		],
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
 					"referenceName": "PL_CPYDATA_EVNT_SNOWFLAKE",
 					"type": "PipelineReference"
+				},
+				"parameters": {
+					"FolderPath": "blobinput/BLOB/",
+					"FileName": "data_0_0_0.snappy.parquet"
 				}
 			},
 			{

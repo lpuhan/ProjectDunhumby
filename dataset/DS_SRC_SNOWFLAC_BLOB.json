@@ -5,6 +5,14 @@
 			"referenceName": "LS_SRC_SNOWFLAC_BLOB",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"folderpath": {
+				"type": "string"
+			},
+			"fileName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
