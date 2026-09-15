@@ -6,6 +6,10 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "lpadfws"
+		},
+		"BLOBCopyADLS_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
 		}
 	},
 	"variables": {
@@ -1308,6 +1312,36 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SRC_CPYDATA_XLS')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SNK_CPYDATA_XLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BLOBCopyADLS')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPYDATA_EVNT_SNOWFLAKE",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/blobinput/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('BLOBCopyADLS_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPYDATA_EVNT_SNOWFLAKE')]"
 			]
 		}
 	]

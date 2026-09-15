@@ -123,6 +123,10 @@
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
+		"BLOBCopyADLS_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -254,6 +258,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"BLOBCopyADLS_properties_typeProperties_scope": {
+						"value": "[parameters('BLOBCopyADLS_properties_typeProperties_scope')]"
 					}
 				}
 			},
