@@ -1,0 +1,23 @@
+{
+	"name": "DS_DST_CPYDATA_SNOWFLK",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DST_CPYDATA_SNOWFLK",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@concat('BLOB/',\nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/' )",
+					"type": "Expression"
+				},
+				"container": "blobinput"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
