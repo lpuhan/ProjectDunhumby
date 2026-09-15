@@ -1,0 +1,22 @@
+{
+	"name": "DS_SNK_CPYDATA_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SNK_CPYDATA_JSON",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@concat('JSON/',\nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/')",
+					"type": "Expression"
+				},
+				"fileSystem": "output"
+			}
+		},
+		"schema": {}
+	}
+}

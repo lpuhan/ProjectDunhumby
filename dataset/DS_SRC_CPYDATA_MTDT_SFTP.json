@@ -1,0 +1,17 @@
+{
+	"name": "DS_SRC_CPYDATA_MTDT_SFTP",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SRC_CPYDATA_MTDT_SFTP",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "input"
+			}
+		}
+	}
+}

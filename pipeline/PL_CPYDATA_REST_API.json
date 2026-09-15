@@ -1,9 +1,9 @@
 {
-	"name": "PL_CPYDATA_JSON",
+	"name": "PL_CPYDATA_REST_API",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy JSON",
+				"name": "Copy API Data",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -16,36 +16,34 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "JsonSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "JsonReadSettings"
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
 						}
 					},
 					"sink": {
-						"type": "JsonSink",
+						"type": "ParquetSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings"
+							"type": "ParquetWriteSettings"
 						}
 					},
 					"enableStaging": false
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_SRC_CPYDATA_JSON",
+						"referenceName": "DS_SRC_CPYDATA_API",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_SNK_CPYDATA_JSON",
+						"referenceName": "DS_SNK_CPYDATA_API",
 						"type": "DatasetReference"
 					}
 				]

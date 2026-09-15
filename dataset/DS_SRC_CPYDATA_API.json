@@ -1,0 +1,12 @@
+{
+	"name": "DS_SRC_CPYDATA_API",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SRC_CPYDATA_API",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
