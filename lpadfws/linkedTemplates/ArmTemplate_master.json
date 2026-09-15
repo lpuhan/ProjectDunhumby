@@ -123,10 +123,6 @@
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
-		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_trigger_fileName": {
-			"type": "string",
-			"defaultValue": "@triggerBody.fileName()"
-		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
@@ -262,9 +258,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_trigger_fileName": {
-						"value": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_trigger_fileName')]"
 					},
 					"trigger1_properties_typeProperties_scope": {
 						"value": "[parameters('trigger1_properties_typeProperties_scope')]"

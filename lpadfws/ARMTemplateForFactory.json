@@ -123,10 +123,6 @@
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
-		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_trigger_fileName": {
-			"type": "string",
-			"defaultValue": "@triggerBody.fileName()"
-		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
@@ -355,39 +351,20 @@
 							{
 								"referenceName": "DS_SRC_SNOWFLAC_BLOB",
 								"type": "DatasetReference",
-								"parameters": {
-									"container": "blobinput",
-									"folder": "data",
-									"file": {
-										"value": "@pipeline().parameters.trigger_fileName",
-										"type": "Expression"
-									}
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "DS_SNK_SNOWFLAC_ADLSG2",
 								"type": "DatasetReference",
-								"parameters": {
-									"container": "output",
-									"folder": "blob",
-									"file": {
-										"value": "@pipeline().parameters.trigger_fileName",
-										"type": "Expression"
-									}
-								}
+								"parameters": {}
 							}
 						]
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"trigger_fileName": {
-						"type": "string"
-					}
 				},
 				"annotations": []
 			},
@@ -1152,34 +1129,13 @@
 					"referenceName": "LS_SNK_SNOWFLAC_ADLSG2",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"container": {
-						"type": "string"
-					},
-					"folder": {
-						"type": "string"
-					},
-					"file": {
-						"type": "string"
-					}
-				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().file",
-							"type": "Expression"
-						},
-						"folderPath": {
-							"value": "@dataset().folder",
-							"type": "Expression"
-						},
-						"fileSystem": {
-							"value": "@dataset().container",
-							"type": "Expression"
-						}
+						"folderPath": "SNOWFLAKE",
+						"fileSystem": "output"
 					},
 					"compressionCodec": "snappy"
 				},
@@ -1553,17 +1509,6 @@
 					"referenceName": "LS_SRC_SNOWFLAC_BLOB",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"container": {
-						"type": "string"
-					},
-					"folder": {
-						"type": "string"
-					},
-					"file": {
-						"type": "string"
-					}
-				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
@@ -1905,9 +1850,7 @@
 							"referenceName": "PL_CPYDATA_EVNT_SNOWFLAKE",
 							"type": "PipelineReference"
 						},
-						"parameters": {
-							"trigger_fileName": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_trigger_fileName')]"
-						}
+						"parameters": {}
 					}
 				],
 				"type": "BlobEventsTrigger",
