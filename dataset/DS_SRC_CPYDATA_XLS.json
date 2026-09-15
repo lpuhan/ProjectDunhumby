@@ -1,0 +1,20 @@
+{
+	"name": "DS_SRC_CPYDATA_XLS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SRC_CPYDATA_XLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Worksheet",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "order_reviews_dataset.xlsx",
+				"fileSystem": "input"
+			}
+		},
+		"schema": []
+	}
+}
