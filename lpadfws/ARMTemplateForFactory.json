@@ -123,17 +123,9 @@
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
-		"BLOBCopyADLS_properties_typeProperties_scope": {
+		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_trigger_fileName": {
 			"type": "string",
-			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
-		},
-		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FolderPath": {
-			"type": "string",
-			"defaultValue": "blobinput/BLOB/"
-		},
-		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FileName": {
-			"type": "string",
-			"defaultValue": "data_0_0_0.snappy.parquet"
+			"defaultValue": "@triggerBody.fileName()"
 		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
@@ -318,8 +310,6 @@
 					{
 						"name": "Copy BLOB To ADLS",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -366,8 +356,10 @@
 								"referenceName": "DS_SRC_SNOWFLAC_BLOB",
 								"type": "DatasetReference",
 								"parameters": {
-									"folderpath": {
-										"value": "@pipeline().parameters.FileName",
+									"container": "blobinput",
+									"folder": "data",
+									"file": {
+										"value": "@pipeline().parameters.trigger_fileName",
 										"type": "Expression"
 									}
 								}
@@ -377,7 +369,14 @@
 							{
 								"referenceName": "DS_SNK_SNOWFLAC_ADLSG2",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"container": "output",
+									"folder": "blob",
+									"file": {
+										"value": "@pipeline().parameters.trigger_fileName",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -386,10 +385,7 @@
 					"elapsedTimeMetric": {}
 				},
 				"parameters": {
-					"FolderPath": {
-						"type": "string"
-					},
-					"FileName": {
+					"trigger_fileName": {
 						"type": "string"
 					}
 				},
@@ -1156,16 +1152,34 @@
 					"referenceName": "LS_SNK_SNOWFLAC_ADLSG2",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"container": {
+						"type": "string"
+					},
+					"folder": {
+						"type": "string"
+					},
+					"file": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"folderPath": {
-							"value": "@concat('SNOWFLAKE/', \nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/' )",
+						"fileName": {
+							"value": "@dataset().file",
 							"type": "Expression"
 						},
-						"fileSystem": "output"
+						"folderPath": {
+							"value": "@dataset().folder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().container",
+							"type": "Expression"
+						}
 					},
 					"compressionCodec": "snappy"
 				},
@@ -1540,10 +1554,13 @@
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"folderpath": {
+					"container": {
 						"type": "string"
 					},
-					"fileName": {
+					"folder": {
+						"type": "string"
+					},
+					"file": {
 						"type": "string"
 					}
 				},
@@ -1876,45 +1893,11 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/BLOBCopyADLS')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_CPYDATA_EVNT_SNOWFLAKE",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/blobinput/blobs/",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('BLOBCopyADLS_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated",
-						"Microsoft.Storage.BlobDeleted"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_CPYDATA_EVNT_SNOWFLAKE')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/trigger1')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [
-					"@triggerBody().folderPath",
-					"@triggerBody().fileName"
-				],
+				"annotations": [],
 				"runtimeState": "Stopped",
 				"pipelines": [
 					{
@@ -1923,21 +1906,14 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"FolderPath": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FolderPath')]",
-							"FileName": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FileName')]"
+							"trigger_fileName": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_trigger_fileName')]"
 						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "PL_CPYDATA_SNOWFLAKE",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
 					}
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/blobinput/blobs/",
+					"blobPathBeginsWith": "/blobinput/blobs/blobinput",
+					"blobPathEndsWith": ".parquet",
 					"ignoreEmptyBlobs": false,
 					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
 					"events": [
@@ -1946,8 +1922,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_CPYDATA_EVNT_SNOWFLAKE')]",
-				"[concat(variables('factoryId'), '/pipelines/PL_CPYDATA_SNOWFLAKE')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_CPYDATA_EVNT_SNOWFLAKE')]"
 			]
 		}
 	]

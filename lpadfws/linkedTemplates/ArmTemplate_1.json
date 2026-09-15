@@ -7,7 +7,11 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "lpadfws"
 		},
-		"BLOBCopyADLS_properties_typeProperties_scope": {
+		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_trigger_fileName": {
+			"type": "string",
+			"defaultValue": "@triggerBody.fileName()"
+		},
+		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
 		}
@@ -135,16 +139,34 @@
 					"referenceName": "LS_SNK_SNOWFLAC_ADLSG2",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"container": {
+						"type": "string"
+					},
+					"folder": {
+						"type": "string"
+					},
+					"file": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"folderPath": {
-							"value": "@concat('SNOWFLAKE/', \nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/' )",
+						"fileName": {
+							"value": "@dataset().file",
 							"type": "Expression"
 						},
-						"fileSystem": "output"
+						"folderPath": {
+							"value": "@dataset().folder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().container",
+							"type": "Expression"
+						}
 					},
 					"compressionCodec": "snappy"
 				},
@@ -503,10 +525,13 @@
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"folderpath": {
+					"container": {
 						"type": "string"
 					},
-					"fileName": {
+					"folder": {
+						"type": "string"
+					},
+					"file": {
 						"type": "string"
 					}
 				},
@@ -740,8 +765,6 @@
 					{
 						"name": "Copy BLOB To ADLS",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -788,8 +811,10 @@
 								"referenceName": "DS_SRC_SNOWFLAC_BLOB",
 								"type": "DatasetReference",
 								"parameters": {
-									"folderpath": {
-										"value": "@pipeline().parameters.FileName",
+									"container": "blobinput",
+									"folder": "data",
+									"file": {
+										"value": "@pipeline().parameters.trigger_fileName",
 										"type": "Expression"
 									}
 								}
@@ -799,7 +824,14 @@
 							{
 								"referenceName": "DS_SNK_SNOWFLAC_ADLSG2",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"container": "output",
+									"folder": "blob",
+									"file": {
+										"value": "@pipeline().parameters.trigger_fileName",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -808,10 +840,7 @@
 					"elapsedTimeMetric": {}
 				},
 				"parameters": {
-					"FolderPath": {
-						"type": "string"
-					},
-					"FileName": {
+					"trigger_fileName": {
 						"type": "string"
 					}
 				},
@@ -1338,29 +1367,31 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/BLOBCopyADLS')]",
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
 							"referenceName": "PL_CPYDATA_EVNT_SNOWFLAKE",
 							"type": "PipelineReference"
 						},
-						"parameters": {}
+						"parameters": {
+							"trigger_fileName": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_trigger_fileName')]"
+						}
 					}
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/blobinput/blobs/",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('BLOBCopyADLS_properties_typeProperties_scope')]",
+					"blobPathBeginsWith": "/blobinput/blobs/blobinput",
+					"blobPathEndsWith": ".parquet",
+					"ignoreEmptyBlobs": false,
+					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
 					"events": [
-						"Microsoft.Storage.BlobCreated",
-						"Microsoft.Storage.BlobDeleted"
+						"Microsoft.Storage.BlobCreated"
 					]
 				}
 			},
