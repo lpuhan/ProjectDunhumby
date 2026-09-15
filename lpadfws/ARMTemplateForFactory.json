@@ -1912,8 +1912,8 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/blobinput/blobs/blobinput",
-					"blobPathEndsWith": ".parquet",
+					"blobPathBeginsWith": "/blobinput/blobs/",
+					"blobPathEndsWith": "*.*",
 					"ignoreEmptyBlobs": false,
 					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
 					"events": [
