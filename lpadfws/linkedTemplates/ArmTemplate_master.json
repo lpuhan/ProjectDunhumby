@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "lpadfws"
 		},
+		"LS_AZSQLDB_METADATA_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_AZSQLDB_METADATA'"
+		},
 		"LS_BLKUPLOAD_CSV_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_BLKUPLOAD_CSV'"
@@ -62,6 +66,18 @@
 		"LS_SRC_SNOWFLAC_BLOB_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SRC_SNOWFLAC_BLOB'"
+		},
+		"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "mylpsqldbserver.database.windows.net"
+		},
+		"LS_AZSQLDB_METADATA_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "mysqldb"
+		},
+		"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dbadmin"
 		},
 		"LS_BLKUPLOAD_CSV_properties_typeProperties_url": {
 			"type": "string",
@@ -154,6 +170,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"LS_AZSQLDB_METADATA_password": {
+						"value": "[parameters('LS_AZSQLDB_METADATA_password')]"
+					},
 					"LS_BLKUPLOAD_CSV_accountKey": {
 						"value": "[parameters('LS_BLKUPLOAD_CSV_accountKey')]"
 					},
@@ -195,6 +214,15 @@
 					},
 					"LS_SRC_SNOWFLAC_BLOB_connectionString": {
 						"value": "[parameters('LS_SRC_SNOWFLAC_BLOB_connectionString')]"
+					},
+					"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
+						"value": "[parameters('LS_AZSQLDB_METADATA_properties_typeProperties_server')]"
+					},
+					"LS_AZSQLDB_METADATA_properties_typeProperties_database": {
+						"value": "[parameters('LS_AZSQLDB_METADATA_properties_typeProperties_database')]"
+					},
+					"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
+						"value": "[parameters('LS_AZSQLDB_METADATA_properties_typeProperties_userName')]"
 					},
 					"LS_BLKUPLOAD_CSV_properties_typeProperties_url": {
 						"value": "[parameters('LS_BLKUPLOAD_CSV_properties_typeProperties_url')]"
@@ -258,6 +286,26 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'lpadfws_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "lpadfws_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"eventTrigger1_properties_typeProperties_scope": {
 						"value": "[parameters('eventTrigger1_properties_typeProperties_scope')]"
@@ -265,7 +313,7 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'lpadfws_ArmTemplate_0')]"
+				"[resourceId('Microsoft.Resources/deployments', 'lpadfws_ArmTemplate_1')]"
 			]
 		}
 	]

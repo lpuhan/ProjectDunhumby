@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "lpadfws"
 		},
+		"LS_AZSQLDB_METADATA_password": {
+			"value": ""
+		},
 		"LS_BLKUPLOAD_CSV_accountKey": {
 			"value": ""
 		},
@@ -46,6 +49,15 @@
 		},
 		"LS_SRC_SNOWFLAC_BLOB_connectionString": {
 			"value": ""
+		},
+		"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
+			"value": "mylpsqldbserver.database.windows.net"
+		},
+		"LS_AZSQLDB_METADATA_properties_typeProperties_database": {
+			"value": "mysqldb"
+		},
+		"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
+			"value": "dbadmin"
 		},
 		"LS_BLKUPLOAD_CSV_properties_typeProperties_url": {
 			"value": "https://msstorageacclp.dfs.core.windows.net/"
