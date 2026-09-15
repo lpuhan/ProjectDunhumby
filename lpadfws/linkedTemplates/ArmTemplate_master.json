@@ -11,7 +11,23 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_BLKUPLOAD_CSV'"
 		},
+		"LS_SNK_BLKUPLOAD_CPY_CSV_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SNK_BLKUPLOAD_CPY_CSV'"
+		},
+		"LS_SRC_BLKUPLD_CPY_CSV_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SRC_BLKUPLD_CPY_CSV'"
+		},
 		"LS_BLKUPLOAD_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
+		},
+		"LS_SNK_BLKUPLOAD_CPY_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
+		},
+		"LS_SRC_BLKUPLD_CPY_CSV_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
@@ -45,8 +61,20 @@
 					"LS_BLKUPLOAD_CSV_accountKey": {
 						"value": "[parameters('LS_BLKUPLOAD_CSV_accountKey')]"
 					},
+					"LS_SNK_BLKUPLOAD_CPY_CSV_accountKey": {
+						"value": "[parameters('LS_SNK_BLKUPLOAD_CPY_CSV_accountKey')]"
+					},
+					"LS_SRC_BLKUPLD_CPY_CSV_accountKey": {
+						"value": "[parameters('LS_SRC_BLKUPLD_CPY_CSV_accountKey')]"
+					},
 					"LS_BLKUPLOAD_CSV_properties_typeProperties_url": {
 						"value": "[parameters('LS_BLKUPLOAD_CSV_properties_typeProperties_url')]"
+					},
+					"LS_SNK_BLKUPLOAD_CPY_CSV_properties_typeProperties_url": {
+						"value": "[parameters('LS_SNK_BLKUPLOAD_CPY_CSV_properties_typeProperties_url')]"
+					},
+					"LS_SRC_BLKUPLD_CPY_CSV_properties_typeProperties_url": {
+						"value": "[parameters('LS_SRC_BLKUPLD_CPY_CSV_properties_typeProperties_url')]"
 					}
 				}
 			},

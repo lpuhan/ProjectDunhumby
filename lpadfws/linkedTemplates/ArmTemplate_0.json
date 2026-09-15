@@ -11,7 +11,23 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_BLKUPLOAD_CSV'"
 		},
+		"LS_SNK_BLKUPLOAD_CPY_CSV_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SNK_BLKUPLOAD_CPY_CSV'"
+		},
+		"LS_SRC_BLKUPLD_CPY_CSV_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SRC_BLKUPLD_CPY_CSV'"
+		},
 		"LS_BLKUPLOAD_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
+		},
+		"LS_SNK_BLKUPLOAD_CPY_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
+		},
+		"LS_SRC_BLKUPLD_CPY_CSV_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		}
@@ -32,6 +48,40 @@
 					"accountKey": {
 						"type": "SecureString",
 						"value": "[parameters('LS_BLKUPLOAD_CSV_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SNK_BLKUPLOAD_CPY_CSV')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_SNK_BLKUPLOAD_CPY_CSV_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_SNK_BLKUPLOAD_CPY_CSV_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SRC_BLKUPLD_CPY_CSV')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_SRC_BLKUPLD_CPY_CSV_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_SRC_BLKUPLD_CPY_CSV_accountKey')]"
 					}
 				}
 			},
@@ -60,16 +110,16 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_SRC_BLKUPLOAD_CSV')]",
+			"name": "[concat(parameters('factoryName'), '/DS_SNK_BLKUPLD_CPY_CSV')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "LS_BLKUPLOAD_CSV",
+					"referenceName": "LS_SNK_BLKUPLOAD_CPY_CSV",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"FIleName": {
+					"FileName": {
 						"type": "string"
 					}
 				},
@@ -79,50 +129,33 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": {
-							"value": "@dataset().FIleName",
+							"value": "@dataset().FileName",
 							"type": "Expression"
 						},
-						"fileSystem": "input"
+						"folderPath": {
+							"value": "@concat( 'BLKCSV/', \nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/' )",
+							"type": "Expression"
+						},
+						"fileSystem": "output"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
-					"firstRowAsHeader": true,
+					"firstRowAsHeader": false,
 					"quoteChar": "\""
 				},
-				"schema": [
-					{
-						"name": "customer_id",
-						"type": "String"
-					},
-					{
-						"name": "customer_unique_id",
-						"type": "String"
-					},
-					{
-						"name": "customer_zip_code_prefix",
-						"type": "String"
-					},
-					{
-						"name": "customer_city",
-						"type": "String"
-					},
-					{
-						"name": "customer_state",
-						"type": "String"
-					}
-				]
+				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_BLKUPLOAD_CSV')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_SNK_BLKUPLOAD_CPY_CSV')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_TGD_BLKUPLOAD_CSV')]",
+			"name": "[concat(parameters('factoryName'), '/DS_SRC_BLKUPLD_CPY_CSV')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "LS_BLKUPLOAD_CSV",
+					"referenceName": "LS_SRC_BLKUPLD_CPY_CSV",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
@@ -131,7 +164,7 @@
 					}
 				},
 				"annotations": [],
-				"type": "Parquet",
+				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
@@ -139,18 +172,17 @@
 							"value": "@dataset().FileName",
 							"type": "Expression"
 						},
-						"folderPath": {
-							"value": "@concat( 'BLKCSV/', formatDateTime(utcNow(),'yyyy'),'/', formatDateTime(utcNow(),'MM'),'/', formatDateTime(utcNow(),'dd'),'/' )",
-							"type": "Expression"
-						},
-						"fileSystem": "output"
+						"fileSystem": "input"
 					},
-					"compressionCodec": "snappy"
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
 				},
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_BLKUPLOAD_CSV')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_SRC_BLKUPLD_CPY_CSV')]"
 			]
 		},
 		{
@@ -196,7 +228,7 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "FilterCSV_copy1",
+								"activity": "FilterCSVFiles",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -205,13 +237,13 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('FilterCSV_copy1').output.Value",
+								"value": "@activity('FilterCSVFiles').output.Value",
 								"type": "Expression"
 							},
 							"isSequential": false,
 							"activities": [
 								{
-									"name": "CPY_CSV",
+									"name": "Copy data1",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -228,7 +260,6 @@
 											"storeSettings": {
 												"type": "AzureBlobFSReadSettings",
 												"recursive": true,
-												"wildcardFileName": "*",
 												"enablePartitionDiscovery": false
 											},
 											"formatSettings": {
@@ -236,16 +267,17 @@
 											}
 										},
 										"sink": {
-											"type": "ParquetSink",
+											"type": "DelimitedTextSink",
 											"storeSettings": {
 												"type": "AzureBlobFSWriteSettings"
 											},
 											"formatSettings": {
-												"type": "ParquetWriteSettings"
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".txt"
 											}
 										},
 										"enableStaging": false,
-										"enableSkipIncompatibleRow": true,
 										"translator": {
 											"type": "TabularTranslator",
 											"typeConversion": true,
@@ -257,10 +289,10 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "DS_SRC_BLKUPLOAD_CSV",
+											"referenceName": "DS_SRC_BLKUPLD_CPY_CSV",
 											"type": "DatasetReference",
 											"parameters": {
-												"FIleName": {
+												"FileName": {
 													"value": "@item().name",
 													"type": "Expression"
 												}
@@ -269,7 +301,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_TGD_BLKUPLOAD_CSV",
+											"referenceName": "DS_SNK_BLKUPLD_CPY_CSV",
 											"type": "DatasetReference",
 											"parameters": {
 												"FileName": {
@@ -284,7 +316,7 @@
 						}
 					},
 					{
-						"name": "FilterCSV_copy1",
+						"name": "FilterCSVFiles",
 						"type": "Filter",
 						"dependsOn": [
 							{
@@ -314,8 +346,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_BULK_METADATA')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SRC_BLKUPLOAD_CSV')]",
-				"[concat(variables('factoryId'), '/datasets/DS_TGD_BLKUPLOAD_CSV')]"
+				"[concat(variables('factoryId'), '/datasets/DS_SRC_BLKUPLD_CPY_CSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SNK_BLKUPLD_CPY_CSV')]"
 			]
 		}
 	]

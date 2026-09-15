@@ -8,7 +8,19 @@
 		"LS_BLKUPLOAD_CSV_accountKey": {
 			"value": ""
 		},
+		"LS_SNK_BLKUPLOAD_CPY_CSV_accountKey": {
+			"value": ""
+		},
+		"LS_SRC_BLKUPLD_CPY_CSV_accountKey": {
+			"value": ""
+		},
 		"LS_BLKUPLOAD_CSV_properties_typeProperties_url": {
+			"value": "https://msstorageacclp.dfs.core.windows.net/"
+		},
+		"LS_SNK_BLKUPLOAD_CPY_CSV_properties_typeProperties_url": {
+			"value": "https://msstorageacclp.dfs.core.windows.net/"
+		},
+		"LS_SRC_BLKUPLD_CPY_CSV_properties_typeProperties_url": {
 			"value": "https://msstorageacclp.dfs.core.windows.net/"
 		},
 		"containerUri": {
