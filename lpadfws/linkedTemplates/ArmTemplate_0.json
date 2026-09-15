@@ -78,6 +78,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().FIleName",
+							"type": "Expression"
+						},
 						"fileSystem": "input"
 					},
 					"columnDelimiter": ",",
@@ -131,6 +135,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().FileName",
+							"type": "Expression"
+						},
 						"folderPath": {
 							"value": "@concat( 'BLKCSV/', formatDateTime(utcNow(),'yyyy'),'/', formatDateTime(utcNow(),'MM'),'/', formatDateTime(utcNow(),'dd'),'/' )",
 							"type": "Expression"
@@ -205,8 +213,6 @@
 								{
 									"name": "CPY_CSV",
 									"type": "Copy",
-									"state": "Inactive",
-									"onInactiveMarkAs": "Succeeded",
 									"dependsOn": [],
 									"policy": {
 										"timeout": "0.12:00:00",
