@@ -9,6 +9,12 @@
 					"referenceName": "PL_CPYDATA_EVNT_SNOWFLAKE",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "PL_CPYDATA_SNOWFLAKE",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "BlobEventsTrigger",
