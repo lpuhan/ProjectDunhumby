@@ -432,10 +432,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"folderPath": {
-							"value": "@concat('BLOB/',\nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/' )",
-							"type": "Expression"
-						},
 						"container": "blobinput"
 					},
 					"compressionCodec": "snappy"

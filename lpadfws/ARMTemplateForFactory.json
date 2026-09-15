@@ -123,6 +123,18 @@
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
+		"BLOBCopyADLS_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
+		},
+		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FolderPath": {
+			"type": "string",
+			"defaultValue": "blobinput/BLOB/"
+		},
+		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FileName": {
+			"type": "string",
+			"defaultValue": "data_0_0_0.snappy.parquet"
+		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
@@ -306,6 +318,8 @@
 					{
 						"name": "Copy BLOB To ADLS",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -351,7 +365,12 @@
 							{
 								"referenceName": "DS_SRC_SNOWFLAC_BLOB",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"folderpath": {
+										"value": "@pipeline().parameters.FileName",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
@@ -365,6 +384,14 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"FolderPath": {
+						"type": "string"
+					},
+					"FileName": {
+						"type": "string"
+					}
 				},
 				"annotations": []
 			},
@@ -926,10 +953,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"folderPath": {
-							"value": "@concat('BLOB/',\nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/' )",
-							"type": "Expression"
-						},
 						"container": "blobinput"
 					},
 					"compressionCodec": "snappy"
@@ -1516,6 +1539,14 @@
 					"referenceName": "LS_SRC_SNOWFLAC_BLOB",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"folderpath": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
@@ -1845,12 +1876,12 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"name": "[concat(parameters('factoryName'), '/BLOBCopyADLS')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -1858,6 +1889,43 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/blobinput/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('BLOBCopyADLS_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated",
+						"Microsoft.Storage.BlobDeleted"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_CPYDATA_EVNT_SNOWFLAKE')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [
+					"@triggerBody().folderPath",
+					"@triggerBody().fileName"
+				],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_CPYDATA_EVNT_SNOWFLAKE",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"FolderPath": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FolderPath')]",
+							"FileName": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FileName')]"
+						}
 					},
 					{
 						"pipelineReference": {

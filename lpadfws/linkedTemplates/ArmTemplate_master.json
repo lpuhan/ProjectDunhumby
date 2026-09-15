@@ -123,6 +123,18 @@
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
+		"BLOBCopyADLS_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
+		},
+		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FolderPath": {
+			"type": "string",
+			"defaultValue": "blobinput/BLOB/"
+		},
+		"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FileName": {
+			"type": "string",
+			"defaultValue": "data_0_0_0.snappy.parquet"
+		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
@@ -259,13 +271,42 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"BLOBCopyADLS_properties_typeProperties_scope": {
+						"value": "[parameters('BLOBCopyADLS_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'lpadfws_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "lpadfws_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FolderPath": {
+						"value": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FolderPath')]"
+					},
+					"trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FileName": {
+						"value": "[parameters('trigger1_properties_PL_CPYDATA_EVNT_SNOWFLAKE_parameters_FileName')]"
+					},
 					"trigger1_properties_typeProperties_scope": {
 						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
 					}
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'lpadfws_ArmTemplate_0')]"
+				"[resourceId('Microsoft.Resources/deployments', 'lpadfws_ArmTemplate_1')]"
 			]
 		}
 	]
