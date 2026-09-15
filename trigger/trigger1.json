@@ -16,8 +16,8 @@
 		],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
-			"blobPathBeginsWith": "/blobinput/blobs/blobinput",
-			"blobPathEndsWith": ".parquet",
+			"blobPathBeginsWith": "/blobinput/blobs/",
+			"blobPathEndsWith": ".",
 			"ignoreEmptyBlobs": false,
 			"scope": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp",
 			"events": [
