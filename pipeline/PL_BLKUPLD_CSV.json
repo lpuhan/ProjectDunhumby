@@ -38,7 +38,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "FilterCSV_copy1",
+						"activity": "FilterCSVFiles",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -47,7 +47,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('FilterCSV_copy1').output.Value",
+						"value": "@activity('FilterCSVFiles').output.Value",
 						"type": "Expression"
 					},
 					"isSequential": false,
@@ -126,7 +126,7 @@
 				}
 			},
 			{
-				"name": "FilterCSV_copy1",
+				"name": "FilterCSVFiles",
 				"type": "Filter",
 				"dependsOn": [
 					{

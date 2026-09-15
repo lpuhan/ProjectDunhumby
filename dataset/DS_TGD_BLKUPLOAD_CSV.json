@@ -20,7 +20,7 @@
 					"type": "Expression"
 				},
 				"folderPath": {
-					"value": "@concat( 'BLKCSV/', formatDateTime(utcNow(),'yyyy'),'/', formatDateTime(utcNow(),'MM'),'/', formatDateTime(utcNow(),'dd'),'/' )",
+					"value": "@concat( 'BLKCSV/', \nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/' )",
 					"type": "Expression"
 				},
 				"fileSystem": "output"
