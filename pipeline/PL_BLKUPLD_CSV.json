@@ -53,7 +53,7 @@
 					"isSequential": false,
 					"activities": [
 						{
-							"name": "CPY_CSV",
+							"name": "Copy data1",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -70,7 +70,6 @@
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
-										"wildcardFileName": "*",
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -78,16 +77,17 @@
 									}
 								},
 								"sink": {
-									"type": "ParquetSink",
+									"type": "DelimitedTextSink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
-										"type": "ParquetWriteSettings"
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
 									}
 								},
 								"enableStaging": false,
-								"enableSkipIncompatibleRow": true,
 								"translator": {
 									"type": "TabularTranslator",
 									"typeConversion": true,
@@ -99,10 +99,10 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DS_SRC_BLKUPLOAD_CSV",
+									"referenceName": "DS_SRC_BLKUPLD_CPY_CSV",
 									"type": "DatasetReference",
 									"parameters": {
-										"FIleName": {
+										"FileName": {
 											"value": "@item().name",
 											"type": "Expression"
 										}
@@ -111,7 +111,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_TGD_BLKUPLOAD_CSV",
+									"referenceName": "DS_SNK_BLKUPLD_CPY_CSV",
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
