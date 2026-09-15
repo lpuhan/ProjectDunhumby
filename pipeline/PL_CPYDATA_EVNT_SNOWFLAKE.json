@@ -1,10 +1,9 @@
 {
-	"name": "PL_CPYDATA_SNOWFLAKE",
+	"name": "PL_CPYDATA_EVNT_SNOWFLAKE",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy to BLOB",
-				"description": "copy Snowflake to BLOB",
+				"name": "Copy BLOB To ADLS",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -17,15 +16,21 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SnowflakeV2Source",
-						"exportSettings": {
-							"type": "SnowflakeExportCopyCommand"
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.parquet",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "ParquetReadSettings"
 						}
 					},
 					"sink": {
 						"type": "ParquetSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
 							"type": "ParquetWriteSettings"
@@ -43,13 +48,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_SRC_CPYDATA_SNOWFLK",
+						"referenceName": "DS_SRC_SNOWFLAC_BLOB",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_DST_CPYDATA_SNOWFLK",
+						"referenceName": "DS_SNK_SNOWFLAC_ADLSG2",
 						"type": "DatasetReference"
 					}
 				]
