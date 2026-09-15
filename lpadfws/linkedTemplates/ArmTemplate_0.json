@@ -121,6 +121,11 @@
 					"referenceName": "LS_BLKUPLOAD_CSV",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"FileName": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
@@ -200,6 +205,8 @@
 								{
 									"name": "CPY_CSV",
 									"type": "Copy",
+									"state": "Inactive",
+									"onInactiveMarkAs": "Succeeded",
 									"dependsOn": [],
 									"policy": {
 										"timeout": "0.12:00:00",
@@ -258,7 +265,12 @@
 										{
 											"referenceName": "DS_TGD_BLKUPLOAD_CSV",
 											"type": "DatasetReference",
-											"parameters": {}
+											"parameters": {
+												"FileName": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
 										}
 									]
 								}
