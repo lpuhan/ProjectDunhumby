@@ -1,0 +1,12 @@
+{
+	"name": "LS_SRC_CPYDATA_API",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://retoolapi.dev/S01Yxv/data",
+			"enableServerCertificateValidation": false,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
