@@ -7,7 +7,7 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "lpadfws"
 		},
-		"trigger1_properties_typeProperties_scope": {
+		"eventTrigger1_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
 		}
@@ -504,10 +504,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"folderPath": {
-							"value": "@concat('BLOB/', \nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/' )",
-							"type": "Expression"
-						},
 						"container": "blobinput"
 					},
 					"compressionCodec": "snappy"
@@ -744,7 +740,7 @@
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
-									"wildcardFileName": "*.parquet",
+									"wildcardFileName": "*.*",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -1312,12 +1308,12 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"name": "[concat(parameters('factoryName'), '/eventTrigger1')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -1330,9 +1326,8 @@
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/blobinput/blobs/",
-					"blobPathEndsWith": "*.*",
-					"ignoreEmptyBlobs": false,
-					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('eventTrigger1_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
 					]

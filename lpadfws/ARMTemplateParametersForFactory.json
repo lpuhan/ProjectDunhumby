@@ -92,7 +92,7 @@
 		"LS_SRC_CPYDATA_XLS_properties_typeProperties_url": {
 			"value": "https://msstorageacclp.dfs.core.windows.net/"
 		},
-		"trigger1_properties_typeProperties_scope": {
+		"eventTrigger1_properties_typeProperties_scope": {
 			"value": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
 		}
 	}
