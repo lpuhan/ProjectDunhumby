@@ -5,16 +5,34 @@
 			"referenceName": "LS_SNK_SNOWFLAC_ADLSG2",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"container": {
+				"type": "string"
+			},
+			"folder": {
+				"type": "string"
+			},
+			"file": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": {
-					"value": "@concat('SNOWFLAKE/', \nformatDateTime(utcNow(),'yyyy'),'/', \nformatDateTime(utcNow(),'MM'),'/', \nformatDateTime(utcNow(),'dd'),'/' )",
+				"fileName": {
+					"value": "@dataset().file",
 					"type": "Expression"
 				},
-				"fileSystem": "output"
+				"folderPath": {
+					"value": "@dataset().folder",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().container",
+					"type": "Expression"
+				}
 			},
 			"compressionCodec": "snappy"
 		},

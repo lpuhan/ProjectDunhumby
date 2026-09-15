@@ -53,8 +53,10 @@
 						"referenceName": "DS_SRC_SNOWFLAC_BLOB",
 						"type": "DatasetReference",
 						"parameters": {
-							"folderpath": {
-								"value": "@pipeline().parameters.FileName",
+							"container": "blobinput",
+							"folder": "data",
+							"file": {
+								"value": "@pipeline().parameters.trigger_fileName",
 								"type": "Expression"
 							}
 						}
@@ -63,16 +65,21 @@
 				"outputs": [
 					{
 						"referenceName": "DS_SNK_SNOWFLAC_ADLSG2",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "output",
+							"folder": "blob",
+							"file": {
+								"value": "@pipeline().parameters.trigger_fileName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
 		"parameters": {
-			"FolderPath": {
-				"type": "string"
-			},
-			"FileName": {
+			"trigger_fileName": {
 				"type": "string"
 			}
 		},
