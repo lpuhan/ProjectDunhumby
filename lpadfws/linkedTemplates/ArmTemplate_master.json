@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_SNK_CPYDATA_API'"
 		},
+		"LS_SNK_CPYDATA_CSV_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SNK_CPYDATA_CSV'"
+		},
 		"LS_SNK_CPYDATA_JSON_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_SNK_CPYDATA_JSON'"
@@ -42,6 +46,10 @@
 		"LS_SRC_BLKUPLD_CPY_CSV_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_SRC_BLKUPLD_CPY_CSV'"
+		},
+		"LS_SRC_CPYDATA_CSV_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SRC_CPYDATA_CSV'"
 		},
 		"LS_SRC_CPYDATA_JSON_accountKey": {
 			"type": "secureString",
@@ -66,10 +74,6 @@
 		"LS_SRC_SNOWFLAC_BLOB_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SRC_SNOWFLAC_BLOB'"
-		},
-		"LS_SRC_CPYDATA_CSV_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_SRC_CPYDATA_CSV'"
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
 			"type": "string",
@@ -99,6 +103,10 @@
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
+		"LS_SNK_CPYDATA_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
+		},
 		"LS_SNK_CPYDATA_JSON_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
@@ -123,6 +131,10 @@
 			"type": "string",
 			"defaultValue": "https://retoolapi.dev/S01Yxv/data"
 		},
+		"LS_SRC_CPYDATA_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
+		},
 		"LS_SRC_CPYDATA_JSON_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
@@ -146,10 +158,6 @@
 		"eventTrigger1_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
-		},
-		"LS_SRC_CPYDATA_CSV_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -190,6 +198,9 @@
 					"LS_SNK_CPYDATA_API_accountKey": {
 						"value": "[parameters('LS_SNK_CPYDATA_API_accountKey')]"
 					},
+					"LS_SNK_CPYDATA_CSV_accountKey": {
+						"value": "[parameters('LS_SNK_CPYDATA_CSV_accountKey')]"
+					},
 					"LS_SNK_CPYDATA_JSON_accountKey": {
 						"value": "[parameters('LS_SNK_CPYDATA_JSON_accountKey')]"
 					},
@@ -204,6 +215,9 @@
 					},
 					"LS_SRC_BLKUPLD_CPY_CSV_accountKey": {
 						"value": "[parameters('LS_SRC_BLKUPLD_CPY_CSV_accountKey')]"
+					},
+					"LS_SRC_CPYDATA_CSV_accountKey": {
+						"value": "[parameters('LS_SRC_CPYDATA_CSV_accountKey')]"
 					},
 					"LS_SRC_CPYDATA_JSON_accountKey": {
 						"value": "[parameters('LS_SRC_CPYDATA_JSON_accountKey')]"
@@ -222,9 +236,6 @@
 					},
 					"LS_SRC_SNOWFLAC_BLOB_connectionString": {
 						"value": "[parameters('LS_SRC_SNOWFLAC_BLOB_connectionString')]"
-					},
-					"LS_SRC_CPYDATA_CSV_accountKey": {
-						"value": "[parameters('LS_SRC_CPYDATA_CSV_accountKey')]"
 					},
 					"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
 						"value": "[parameters('LS_AZSQLDB_METADATA_properties_typeProperties_server')]"
@@ -247,6 +258,9 @@
 					"LS_SNK_CPYDATA_API_properties_typeProperties_url": {
 						"value": "[parameters('LS_SNK_CPYDATA_API_properties_typeProperties_url')]"
 					},
+					"LS_SNK_CPYDATA_CSV_properties_typeProperties_url": {
+						"value": "[parameters('LS_SNK_CPYDATA_CSV_properties_typeProperties_url')]"
+					},
 					"LS_SNK_CPYDATA_JSON_properties_typeProperties_url": {
 						"value": "[parameters('LS_SNK_CPYDATA_JSON_properties_typeProperties_url')]"
 					},
@@ -265,6 +279,9 @@
 					"LS_SRC_CPYDATA_API_properties_typeProperties_url": {
 						"value": "[parameters('LS_SRC_CPYDATA_API_properties_typeProperties_url')]"
 					},
+					"LS_SRC_CPYDATA_CSV_properties_typeProperties_url": {
+						"value": "[parameters('LS_SRC_CPYDATA_CSV_properties_typeProperties_url')]"
+					},
 					"LS_SRC_CPYDATA_JSON_properties_typeProperties_url": {
 						"value": "[parameters('LS_SRC_CPYDATA_JSON_properties_typeProperties_url')]"
 					},
@@ -279,9 +296,6 @@
 					},
 					"LS_SRC_CPYDATA_XLS_properties_typeProperties_url": {
 						"value": "[parameters('LS_SRC_CPYDATA_XLS_properties_typeProperties_url')]"
-					},
-					"LS_SRC_CPYDATA_CSV_properties_typeProperties_url": {
-						"value": "[parameters('LS_SRC_CPYDATA_CSV_properties_typeProperties_url')]"
 					}
 				}
 			},

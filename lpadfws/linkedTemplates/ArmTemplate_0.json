@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_SNK_CPYDATA_API'"
 		},
+		"LS_SNK_CPYDATA_CSV_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SNK_CPYDATA_CSV'"
+		},
 		"LS_SNK_CPYDATA_JSON_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_SNK_CPYDATA_JSON'"
@@ -42,6 +46,10 @@
 		"LS_SRC_BLKUPLD_CPY_CSV_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_SRC_BLKUPLD_CPY_CSV'"
+		},
+		"LS_SRC_CPYDATA_CSV_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SRC_CPYDATA_CSV'"
 		},
 		"LS_SRC_CPYDATA_JSON_accountKey": {
 			"type": "secureString",
@@ -66,10 +74,6 @@
 		"LS_SRC_SNOWFLAC_BLOB_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SRC_SNOWFLAC_BLOB'"
-		},
-		"LS_SRC_CPYDATA_CSV_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_SRC_CPYDATA_CSV'"
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
 			"type": "string",
@@ -99,6 +103,10 @@
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		},
+		"LS_SNK_CPYDATA_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
+		},
 		"LS_SNK_CPYDATA_JSON_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
@@ -123,6 +131,10 @@
 			"type": "string",
 			"defaultValue": "https://retoolapi.dev/S01Yxv/data"
 		},
+		"LS_SRC_CPYDATA_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
+		},
 		"LS_SRC_CPYDATA_JSON_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
@@ -140,10 +152,6 @@
 			"defaultValue": "DBAZURESNOW"
 		},
 		"LS_SRC_CPYDATA_XLS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
-		},
-		"LS_SRC_CPYDATA_CSV_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://msstorageacclp.dfs.core.windows.net/"
 		}
@@ -233,6 +241,23 @@
 					"accountKey": {
 						"type": "SecureString",
 						"value": "[parameters('LS_SNK_CPYDATA_API_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SNK_CPYDATA_CSV')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_SNK_CPYDATA_CSV_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_SNK_CPYDATA_CSV_accountKey')]"
 					}
 				}
 			},
@@ -334,6 +359,23 @@
 					"url": "[parameters('LS_SRC_CPYDATA_API_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": false,
 					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SRC_CPYDATA_CSV')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_SRC_CPYDATA_CSV_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_SRC_CPYDATA_CSV_accountKey')]"
+					}
 				}
 			},
 			"dependsOn": []
@@ -443,23 +485,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_SRC_CPYDATA_CSV')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('LS_SRC_CPYDATA_CSV_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('LS_SRC_CPYDATA_CSV_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/DS_AZSQLDB_METADATA')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -475,28 +500,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_AZSQLDB_METADATA')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_BULK_METADATA')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_BLKUPLOAD_CSV",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "input"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_BLKUPLOAD_CSV')]"
 			]
 		}
 	]

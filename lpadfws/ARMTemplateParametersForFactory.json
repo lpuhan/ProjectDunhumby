@@ -17,6 +17,9 @@
 		"LS_SNK_CPYDATA_API_accountKey": {
 			"value": ""
 		},
+		"LS_SNK_CPYDATA_CSV_accountKey": {
+			"value": ""
+		},
 		"LS_SNK_CPYDATA_JSON_accountKey": {
 			"value": ""
 		},
@@ -30,6 +33,9 @@
 			"value": ""
 		},
 		"LS_SRC_BLKUPLD_CPY_CSV_accountKey": {
+			"value": ""
+		},
+		"LS_SRC_CPYDATA_CSV_accountKey": {
 			"value": ""
 		},
 		"LS_SRC_CPYDATA_JSON_accountKey": {
@@ -48,9 +54,6 @@
 			"value": ""
 		},
 		"LS_SRC_SNOWFLAC_BLOB_connectionString": {
-			"value": ""
-		},
-		"LS_SRC_CPYDATA_CSV_accountKey": {
 			"value": ""
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
@@ -74,6 +77,9 @@
 		"LS_SNK_CPYDATA_API_properties_typeProperties_url": {
 			"value": "https://msstorageacclp.dfs.core.windows.net/"
 		},
+		"LS_SNK_CPYDATA_CSV_properties_typeProperties_url": {
+			"value": "https://msstorageacclp.dfs.core.windows.net/"
+		},
 		"LS_SNK_CPYDATA_JSON_properties_typeProperties_url": {
 			"value": "https://msstorageacclp.dfs.core.windows.net/"
 		},
@@ -92,6 +98,9 @@
 		"LS_SRC_CPYDATA_API_properties_typeProperties_url": {
 			"value": "https://retoolapi.dev/S01Yxv/data"
 		},
+		"LS_SRC_CPYDATA_CSV_properties_typeProperties_url": {
+			"value": "https://msstorageacclp.dfs.core.windows.net/"
+		},
 		"LS_SRC_CPYDATA_JSON_properties_typeProperties_url": {
 			"value": "https://msstorageacclp.dfs.core.windows.net/"
 		},
@@ -109,9 +118,6 @@
 		},
 		"eventTrigger1_properties_typeProperties_scope": {
 			"value": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
-		},
-		"LS_SRC_CPYDATA_CSV_properties_typeProperties_url": {
-			"value": "https://msstorageacclp.dfs.core.windows.net/"
 		}
 	}
 }
