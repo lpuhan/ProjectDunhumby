@@ -49,19 +49,21 @@
 					},
 					"cases": [
 						{
-							"value": "csv",
+							"value": "Azure",
 							"activities": [
 								{
-									"name": "Execute Pipeline1",
+									"name": "Execute File CSV",
 									"type": "ExecutePipeline",
-									"state": "Inactive",
-									"onInactiveMarkAs": "Succeeded",
 									"dependsOn": [],
 									"policy": {
 										"secureInput": false
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PL4_FILETYP_CSV_EXCEL",
+											"type": "PipelineReference"
+										},
 										"waitOnCompletion": true
 									}
 								}
