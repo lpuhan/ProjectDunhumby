@@ -393,8 +393,6 @@
 					{
 						"name": "Switch_SRC_LOC_CSV_EXCEL",
 						"type": "Switch",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "LKP_SRC_FILES",
@@ -489,8 +487,6 @@
 					{
 						"name": "Switch CSV Excel",
 						"type": "Switch",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Lookup1",
