@@ -11,10 +11,6 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "olist_geolocation_dataset.csv",
-				"folderPath": {
-					"value": "@concat('CSV/',\nformatDateTime(utcNow(),'yyyy'),'/',\nformatDateTime(utcNow(),'MM'),'/',\nformatDateTime(utcNow(),'dd'),'/'\n)",
-					"type": "Expression"
-				},
 				"fileSystem": "input"
 			},
 			"columnDelimiter": ",",
