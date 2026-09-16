@@ -31,7 +31,7 @@
 				}
 			},
 			{
-				"name": "Switch1",
+				"name": "Switch_SOURCE",
 				"type": "Switch",
 				"dependsOn": [
 					{
