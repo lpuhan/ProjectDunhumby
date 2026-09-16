@@ -55,7 +55,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_SRC_CPYDATA_CSV",
+						"referenceName": "DS_SNK_CPYDATA_CSV",
 						"type": "DatasetReference"
 					}
 				]
