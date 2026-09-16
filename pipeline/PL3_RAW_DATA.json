@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup1",
+				"name": "LKP_SRC_FILES",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -31,13 +31,11 @@
 				}
 			},
 			{
-				"name": "Switch1",
+				"name": "Switch_SRC_LOC_CSV_EXCEL",
 				"type": "Switch",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
-						"activity": "Lookup1",
+						"activity": "LKP_SRC_FILES",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -46,7 +44,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"on": {
-						"value": "@activity('Lookup1').output",
+						"value": "@activity('LKP_SRC_FILES').output",
 						"type": "Expression"
 					},
 					"cases": [
