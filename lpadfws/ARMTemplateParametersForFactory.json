@@ -50,6 +50,9 @@
 		"LS_SRC_SNOWFLAC_BLOB_connectionString": {
 			"value": ""
 		},
+		"LS_SRC_CPYDATA_CSV_accountKey": {
+			"value": ""
+		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
 			"value": "mylpsqldbserver.database.windows.net"
 		},
@@ -106,6 +109,9 @@
 		},
 		"eventTrigger1_properties_typeProperties_scope": {
 			"value": "/subscriptions/e814282d-cf6c-475d-b51b-37f2e04920f4/resourceGroups/MyProjectWS/providers/Microsoft.Storage/storageAccounts/msblobstorageacclp"
+		},
+		"LS_SRC_CPYDATA_CSV_properties_typeProperties_url": {
+			"value": "https://msstorageacclp.dfs.core.windows.net/"
 		}
 	}
 }
