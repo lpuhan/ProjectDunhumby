@@ -66,22 +66,6 @@
 										},
 										"waitOnCompletion": true
 									}
-								},
-								{
-									"name": "Execute File CSV_copy1",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"policy": {
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "PL4_FILETYP_CSV_EXCEL",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true
-									}
 								}
 							]
 						}
@@ -92,6 +76,11 @@
 		"parameters": {
 			"Trigger": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"Trigger_variable": {
+				"type": "String"
 			}
 		},
 		"annotations": []

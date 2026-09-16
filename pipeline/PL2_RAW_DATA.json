@@ -27,7 +27,8 @@
 					"dataset": {
 						"referenceName": "DS_AZSQLDB_METADATA",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": true
 				}
 			},
 			{
@@ -99,6 +100,11 @@
 		"parameters": {
 			"Trigger": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"Trigger_variable": {
+				"type": "String"
 			}
 		},
 		"annotations": []

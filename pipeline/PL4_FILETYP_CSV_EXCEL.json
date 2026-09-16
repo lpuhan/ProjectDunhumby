@@ -78,6 +78,11 @@
 				"type": "string"
 			}
 		},
+		"variables": {
+			"Trigger_variable": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
