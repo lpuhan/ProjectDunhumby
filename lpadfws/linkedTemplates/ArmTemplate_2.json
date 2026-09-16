@@ -639,7 +639,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"on": {
-								"value": "@activity('Lookup1').output",
+								"value": "@activity('Lookup1').output.firstRow.L4_switch_type",
 								"type": "Expression"
 							},
 							"cases": [
@@ -770,6 +770,23 @@
 									"activities": [
 										{
 											"name": "Execute File CSV",
+											"type": "ExecutePipeline",
+											"dependsOn": [],
+											"policy": {
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"pipeline": {
+													"referenceName": "PL4_FILETYP_CSV_EXCEL",
+													"type": "PipelineReference"
+												},
+												"waitOnCompletion": true,
+												"parameters": {}
+											}
+										},
+										{
+											"name": "Execute File CSV_copy1",
 											"type": "ExecutePipeline",
 											"dependsOn": [],
 											"policy": {
