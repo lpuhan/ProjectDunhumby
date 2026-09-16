@@ -470,7 +470,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_MASTER')]",
+			"name": "[concat(parameters('factoryName'), '/PL1_MASTER')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
