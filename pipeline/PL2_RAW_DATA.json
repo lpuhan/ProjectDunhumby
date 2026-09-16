@@ -73,7 +73,7 @@
 							"value": "CloudStorage",
 							"activities": [
 								{
-									"name": "Execute Pipeline2",
+									"name": "Execute Pipeline3",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"policy": {
