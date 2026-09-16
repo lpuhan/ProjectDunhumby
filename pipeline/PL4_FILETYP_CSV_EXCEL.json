@@ -33,8 +33,6 @@
 			{
 				"name": "Switch CSV Excel",
 				"type": "Switch",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Lookup1",
