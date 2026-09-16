@@ -843,7 +843,7 @@
 						}
 					},
 					{
-						"name": "Switch1",
+						"name": "Switch_SOURCE",
 						"type": "Switch",
 						"dependsOn": [
 							{
@@ -886,7 +886,7 @@
 									"value": "CloudStorage",
 									"activities": [
 										{
-											"name": "Execute Pipeline2",
+											"name": "Execute Pipeline3",
 											"type": "ExecutePipeline",
 											"dependsOn": [],
 											"policy": {
