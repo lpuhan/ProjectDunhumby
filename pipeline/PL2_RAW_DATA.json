@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "LOOKUP_L2",
+				"name": "LOOKUP_L2_TYPE",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -17,7 +17,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT L2_switch_type  FROM dbo.vb_tbl_job a  JOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
+						"sqlReaderQuery": {
+							"value": "SELECT DISTINCT L2_switch_type  FROM dbo.vb_tbl_job a  JOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -32,7 +35,7 @@
 				"type": "Switch",
 				"dependsOn": [
 					{
-						"activity": "LOOKUP_L2",
+						"activity": "LOOKUP_L2_TYPE",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -41,7 +44,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"on": {
-						"value": "@activity('LOOKUP_L2').output.firstRow.L2_switch_type",
+						"value": "@activity('LOOKUP_L2_TYPE').output.firstRow.L2_switch_type",
 						"type": "Expression"
 					},
 					"cases": [
@@ -79,7 +82,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "pipeline1",
+											"referenceName": "PL3_RAW_DATA",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true
