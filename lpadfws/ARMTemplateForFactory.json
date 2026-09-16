@@ -1524,7 +1524,8 @@
 						"folderPath": {
 							"value": "@concat(\n'CSV/',\nformatDateTime(utcNow(),'yyyy'),'/',\nformatDateTime(utcNow(),'MM'),'/',\nformatDateTime(utcNow(),'dd'),'/'\n)",
 							"type": "Expression"
-						}
+						},
+						"fileSystem": "output"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
