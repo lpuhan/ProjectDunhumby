@@ -736,7 +736,7 @@
 							"source": {
 								"type": "AzureSqlSource",
 								"sqlReaderQuery": {
-									"value": "SELECT DISTINCT L3_switch_type \nFROM dbo.vb_tbl_job a\nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}’",
+									"value": "SELECT DISTINCT L3_switch_type \nFROM dbo.vb_tbl_job a\nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -868,6 +868,8 @@
 										{
 											"name": "Execute Pipeline1",
 											"type": "ExecutePipeline",
+											"state": "Inactive",
+											"onInactiveMarkAs": "Succeeded",
 											"dependsOn": [],
 											"policy": {
 												"secureInput": false

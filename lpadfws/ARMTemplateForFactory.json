@@ -295,6 +295,8 @@
 										{
 											"name": "Execute Pipeline1",
 											"type": "ExecutePipeline",
+											"state": "Inactive",
+											"onInactiveMarkAs": "Succeeded",
 											"dependsOn": [],
 											"policy": {
 												"secureInput": false
@@ -375,7 +377,7 @@
 							"source": {
 								"type": "AzureSqlSource",
 								"sqlReaderQuery": {
-									"value": "SELECT DISTINCT L3_switch_type \nFROM dbo.vb_tbl_job a\nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}’",
+									"value": "SELECT DISTINCT L3_switch_type \nFROM dbo.vb_tbl_job a\nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -1392,7 +1394,10 @@
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
-				"typeProperties": {}
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "vb_tbl_trigger"
+				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_AZSQLDB_METADATA')]"
