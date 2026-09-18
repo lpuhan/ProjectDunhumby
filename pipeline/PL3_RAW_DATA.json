@@ -52,7 +52,7 @@
 							"value": "Azure",
 							"activities": [
 								{
-									"name": "Execute File CSV",
+									"name": "Exec_File_CSV",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"policy": {
@@ -64,7 +64,13 @@
 											"referenceName": "PL4_FILETYP_CSV_EXCEL",
 											"type": "PipelineReference"
 										},
-										"waitOnCompletion": true
+										"waitOnCompletion": true,
+										"parameters": {
+											"Trigger": {
+												"value": "@pipeline().parameters.Trigger",
+												"type": "Expression"
+											}
+										}
 									}
 								}
 							]
