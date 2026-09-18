@@ -628,8 +628,6 @@
 					{
 						"name": "Switch CSV Excel",
 						"type": "Switch",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "LKUP_GET_FILETYPE_CSV_EXCEL",
