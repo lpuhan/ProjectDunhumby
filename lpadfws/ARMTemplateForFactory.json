@@ -320,8 +320,6 @@
 										{
 											"name": "EXEC_PL3_DATA",
 											"type": "ExecutePipeline",
-											"state": "Inactive",
-											"onInactiveMarkAs": "Succeeded",
 											"dependsOn": [],
 											"policy": {
 												"secureInput": false
@@ -752,6 +750,8 @@
 					{
 						"name": "Copy CSV",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
