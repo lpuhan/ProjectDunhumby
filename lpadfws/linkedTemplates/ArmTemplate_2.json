@@ -628,6 +628,8 @@
 					{
 						"name": "Switch CSV Excel",
 						"type": "Switch",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "LKUP_GET_FILETYPE_CSV_EXCEL",
@@ -922,7 +924,12 @@
 													"type": "PipelineReference"
 												},
 												"waitOnCompletion": true,
-												"parameters": {}
+												"parameters": {
+													"Trigger": {
+														"value": "@pipeline().parameters.Trigger",
+														"type": "Expression"
+													}
+												}
 											}
 										}
 									]
