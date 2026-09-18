@@ -880,30 +880,6 @@
 							},
 							"cases": [
 								{
-									"value": "bulk",
-									"activities": [
-										{
-											"name": "Execute Pipeline1",
-											"type": "ExecutePipeline",
-											"state": "Inactive",
-											"onInactiveMarkAs": "Succeeded",
-											"dependsOn": [],
-											"policy": {
-												"secureInput": false
-											},
-											"userProperties": [],
-											"typeProperties": {
-												"pipeline": {
-													"referenceName": "PL_BLKUPLD_CSV",
-													"type": "PipelineReference"
-												},
-												"waitOnCompletion": true,
-												"parameters": {}
-											}
-										}
-									]
-								},
-								{
 									"value": "CloudStorage",
 									"activities": [
 										{

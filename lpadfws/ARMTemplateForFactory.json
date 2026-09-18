@@ -291,30 +291,6 @@
 							},
 							"cases": [
 								{
-									"value": "bulk",
-									"activities": [
-										{
-											"name": "Execute Pipeline1",
-											"type": "ExecutePipeline",
-											"state": "Inactive",
-											"onInactiveMarkAs": "Succeeded",
-											"dependsOn": [],
-											"policy": {
-												"secureInput": false
-											},
-											"userProperties": [],
-											"typeProperties": {
-												"pipeline": {
-													"referenceName": "PL_BLKUPLD_CSV",
-													"type": "PipelineReference"
-												},
-												"waitOnCompletion": true,
-												"parameters": {}
-											}
-										}
-									]
-								},
-								{
 									"value": "CloudStorage",
 									"activities": [
 										{
@@ -362,7 +338,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_AZSQLDB_METADATA')]",
-				"[concat(variables('factoryId'), '/pipelines/PL_BLKUPLD_CSV')]",
 				"[concat(variables('factoryId'), '/pipelines/PL3_RAW_DATA')]"
 			]
 		},
@@ -748,8 +723,6 @@
 					{
 						"name": "Copy CSV",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
