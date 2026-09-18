@@ -677,6 +677,11 @@
 						"type": "string"
 					}
 				},
+				"variables": {
+					"Trigger_variable": {
+						"type": "String"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": []
@@ -784,23 +789,6 @@
 												"waitOnCompletion": true,
 												"parameters": {}
 											}
-										},
-										{
-											"name": "Execute File CSV_copy1",
-											"type": "ExecutePipeline",
-											"dependsOn": [],
-											"policy": {
-												"secureInput": false
-											},
-											"userProperties": [],
-											"typeProperties": {
-												"pipeline": {
-													"referenceName": "PL4_FILETYP_CSV_EXCEL",
-													"type": "PipelineReference"
-												},
-												"waitOnCompletion": true,
-												"parameters": {}
-											}
 										}
 									]
 								}
@@ -814,6 +802,11 @@
 				"parameters": {
 					"Trigger": {
 						"type": "string"
+					}
+				},
+				"variables": {
+					"Trigger_variable": {
+						"type": "String"
 					}
 				},
 				"annotations": []
@@ -854,7 +847,8 @@
 								"referenceName": "DS_AZSQLDB_METADATA",
 								"type": "DatasetReference",
 								"parameters": {}
-							}
+							},
+							"firstRowOnly": true
 						}
 					},
 					{
@@ -931,6 +925,11 @@
 				"parameters": {
 					"Trigger": {
 						"type": "string"
+					}
+				},
+				"variables": {
+					"Trigger_variable": {
+						"type": "String"
 					}
 				},
 				"annotations": []
