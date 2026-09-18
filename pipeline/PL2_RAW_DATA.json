@@ -78,8 +78,6 @@
 								{
 									"name": "EXEC_PL3_DATA",
 									"type": "ExecutePipeline",
-									"state": "Inactive",
-									"onInactiveMarkAs": "Succeeded",
 									"dependsOn": [],
 									"policy": {
 										"secureInput": false
