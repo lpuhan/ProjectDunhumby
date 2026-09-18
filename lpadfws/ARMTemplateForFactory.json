@@ -258,7 +258,7 @@
 							"source": {
 								"type": "AzureSqlSource",
 								"sqlReaderQuery": {
-									"value": "SELECT DISTINCT L2_switch_type  FROM dbo.vb_tbl_job a  JOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
+									"value": "SELECT DISTINCT L2_switch_type  FROM dbo.vb_tbl_job a  \nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -318,7 +318,7 @@
 									"value": "CloudStorage",
 									"activities": [
 										{
-											"name": "Execute Pipeline3",
+											"name": "EXEC_PL3_DATA",
 											"type": "ExecutePipeline",
 											"dependsOn": [],
 											"policy": {
@@ -418,7 +418,7 @@
 									"value": "Azure",
 									"activities": [
 										{
-											"name": "Execute File CSV",
+											"name": "Exec_File_CSV",
 											"type": "ExecutePipeline",
 											"dependsOn": [],
 											"policy": {
@@ -431,7 +431,12 @@
 													"type": "PipelineReference"
 												},
 												"waitOnCompletion": true,
-												"parameters": {}
+												"parameters": {
+													"Trigger": {
+														"value": "@pipeline().parameters.Trigger",
+														"type": "Expression"
+													}
+												}
 											}
 										}
 									]
@@ -467,7 +472,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Lookup1",
+						"name": "LKUP_GET_FILETYPE_CSV_EXCEL",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -482,7 +487,7 @@
 							"source": {
 								"type": "AzureSqlSource",
 								"sqlReaderQuery": {
-									"value": "SELECT DISTINCT L4_switch_type  FROM dbo.vb_tbl_job a  JOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
+									"value": "SELECT DISTINCT L4_switch_type  FROM dbo.vb_tbl_job a  \nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -500,7 +505,7 @@
 						"type": "Switch",
 						"dependsOn": [
 							{
-								"activity": "Lookup1",
+								"activity": "LKUP_GET_FILETYPE_CSV_EXCEL",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -509,7 +514,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"on": {
-								"value": "@activity('Lookup1').output.firstRow.L4_switch_type",
+								"value": "@activity('LKUP_GET_FILETYPE_CSV_EXCEL').output.firstRow.L4_switch_type",
 								"type": "Expression"
 							},
 							"cases": [
@@ -517,7 +522,7 @@
 									"value": "csv",
 									"activities": [
 										{
-											"name": "Execute File CSV",
+											"name": "EXEC_PL4_1_CSV",
 											"type": "ExecutePipeline",
 											"dependsOn": [],
 											"policy": {
@@ -530,7 +535,12 @@
 													"type": "PipelineReference"
 												},
 												"waitOnCompletion": true,
-												"parameters": {}
+												"parameters": {
+													"Trigger": {
+														"value": "@pipeline().parameters.Trigger",
+														"type": "Expression"
+													}
+												}
 											}
 										}
 									]
@@ -793,6 +803,11 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"Trigger": {
+						"type": "string"
+					}
 				},
 				"annotations": []
 			},

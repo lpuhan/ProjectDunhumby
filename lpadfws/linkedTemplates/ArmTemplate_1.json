@@ -966,6 +966,11 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
+				"parameters": {
+					"Trigger": {
+						"type": "string"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
