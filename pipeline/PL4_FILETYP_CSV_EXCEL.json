@@ -74,6 +74,43 @@
 									}
 								}
 							]
+						},
+						{
+							"value": "excel",
+							"activities": [
+								{
+									"name": "EXEC_PL4_2_EXCEL",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PL_CPYDATA_XLS",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true
+									}
+								},
+								{
+									"name": "EXEC_PL4_2_EXCEL_copy1",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PL_CPYDATA_XLS",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true
+									}
+								}
+							]
 						}
 					]
 				}

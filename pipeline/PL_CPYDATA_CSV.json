@@ -100,6 +100,7 @@
 						"sqlReaderStoredProcedureName": "[dbo].[vb_get_job_dtls]",
 						"storedProcedureParameters": {
 							"TriggerName": {
+								"type": "String",
 								"value": {
 									"value": "@pipeline().parameters.Trigger",
 									"type": "Expression"
@@ -198,7 +199,7 @@
 					"storedProcedureName": "[dbo].[vb_end_log_entry]",
 					"storedProcedureParameters": {
 						"error": {
-							"value": "",
+							"value": null,
 							"type": "String"
 						},
 						"jobid": {
@@ -252,7 +253,10 @@
 							"type": "String"
 						},
 						"jobid": {
-							"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.jobid",
+							"value": {
+								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.jobid",
+								"type": "Expression"
+							},
 							"type": "Int32"
 						},
 						"pipeline_id": {
