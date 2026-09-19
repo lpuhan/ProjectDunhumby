@@ -1228,6 +1228,8 @@
 					{
 						"name": "Copy API Data",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "SP-START-LOG-ENTRY",
@@ -1301,7 +1303,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderStoredProcedureName": "[[dbo].[vb_get_job_dtls]",
+								"sqlReaderStoredProcedureName": "[[dbo].[vb_start_log_entry]",
 								"storedProcedureParameters": {
 									"TriggerName": {
 										"type": "String",
@@ -1318,7 +1320,8 @@
 								"referenceName": "DS_AZSQLDB_METADATA",
 								"type": "DatasetReference",
 								"parameters": {}
-							}
+							},
+							"firstRowOnly": true
 						}
 					},
 					{
@@ -1386,6 +1389,8 @@
 					{
 						"name": "SP-SUCCESS-LOG-ENTRY",
 						"type": "SqlServerStoredProcedure",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Copy API Data",
@@ -1433,6 +1438,8 @@
 					{
 						"name": "SP-FAIL-LOG-ENTRY",
 						"type": "SqlServerStoredProcedure",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Copy API Data",
