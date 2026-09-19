@@ -293,8 +293,6 @@
 			{
 				"name": "SP-FAIL-LOG-ENTRY",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "CopyXLSData",
@@ -316,7 +314,7 @@
 					"storedProcedureParameters": {
 						"error": {
 							"value": {
-								"value": "@activity('Copy CSV').error.message",
+								"value": "@activity('CopyXLSData').error.message",
 								"type": "Expression"
 							},
 							"type": "String"
