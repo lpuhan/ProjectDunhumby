@@ -52,7 +52,7 @@
 							"value": "Azure",
 							"activities": [
 								{
-									"name": "Exec_File_CSV",
+									"name": "Exec_CSV_Excel",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"policy": {
