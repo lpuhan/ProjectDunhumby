@@ -542,24 +542,12 @@
 													"type": "PipelineReference"
 												},
 												"waitOnCompletion": true,
-												"parameters": {}
-											}
-										},
-										{
-											"name": "EXEC_PL4_2_EXCEL_copy1",
-											"type": "ExecutePipeline",
-											"dependsOn": [],
-											"policy": {
-												"secureInput": false
-											},
-											"userProperties": [],
-											"typeProperties": {
-												"pipeline": {
-													"referenceName": "PL_CPYDATA_XLS",
-													"type": "PipelineReference"
-												},
-												"waitOnCompletion": true,
-												"parameters": {}
+												"parameters": {
+													"Trigger": {
+														"value": "@pipeline().parameters.Trigger",
+														"type": "Expression"
+													}
+												}
 											}
 										}
 									]
@@ -1802,8 +1790,6 @@
 					{
 						"name": "SP-FAIL-LOG-ENTRY",
 						"type": "SqlServerStoredProcedure",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "CopyXLSData",
@@ -1825,7 +1811,7 @@
 							"storedProcedureParameters": {
 								"error": {
 									"value": {
-										"value": "@activity('Copy CSV').error.message",
+										"value": "@activity('CopyXLSData').error.message",
 										"type": "Expression"
 									},
 									"type": "String"
